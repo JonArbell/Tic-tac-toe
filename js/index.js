@@ -85,11 +85,8 @@ startUp(); //Call the function 'startUp'
 function clickMeToStart(){
     
     //Changing the title based on a random number.
-    if(random % 2 == 0){
-        document.querySelector('#click-me').textContent = 'First Move : Player X';
-    }else{
-        document.querySelector('#click-me').textContent = 'First Move : Player O';
-    }
+    document.querySelector('#click-me').textContent = random % 2 == 0 ? 'First Move : Player X' : 'First Move : Player O';
+    
     
     //This will remove all content inside elements with the class 'element'.
     document.querySelectorAll('.element').forEach(element =>{
@@ -122,16 +119,10 @@ function playing(){
             const element = box.querySelector('.element');
     
             //Checking if the next move is X or O and setting the color and textContent of the element
-            if (changePlayer % 2 == 0) {
-                element.style.color = 'green';
-                element.textContent = 'X';
-                title.textContent = 'Player O';
-            } else {
-                element.style.color = 'rgb(189, 189, 13)';
-                element.textContent = 'O';
-                title.textContent = 'Player X';
-            }
-    
+            element.style.color = changePlayer % 2 == 0 ? 'green' : 'rgb(189, 189, 13)';
+            element.textContent = changePlayer % 2 == 0 ? 'X' : 'O';
+            title.textContent = changePlayer % 2 == 0 ? 'Player O' : 'Player X';
+            
             //Getting the id of a clicked box 
             const id = parseInt(box.id);
 
@@ -211,7 +202,6 @@ function playing(){
     
     
 }
-
 
 
 //This function checks if there is a winner
