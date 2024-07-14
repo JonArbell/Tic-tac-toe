@@ -45,13 +45,3 @@ body{
     
 }
 
-.box-done{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px rgb(66, 66, 66) solid;
-    width: 175px;
-    height: 175px;
-    gap: 0;
-    
-}
