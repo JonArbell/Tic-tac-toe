@@ -253,7 +253,7 @@ function check(){
                 hasWinner = true; //Set to true to optimize program performance
                 break;
             }
-            //Check if all elements in the first, middle, and last positions are equal
+            //Check diagonal from bottom right to top left are equal
             else if(firstElement == board[0][0] && firstElement == board[1][1] && firstElement == board[2][2]){
 
                 //Change the title based on the winner
@@ -261,7 +261,7 @@ function check(){
                 hasWinner = true; //Set to true to optimize program performance
                 break;
             }
-            //Check if all elements in the last, middle, and first positions are equal
+            //Check diagonal from top right to bottom left are equal
             else if(firstElement == board[0][2] && firstElement == board[1][1] && firstElement == board[2][0]){
 
                 //Change the title based on the winner
