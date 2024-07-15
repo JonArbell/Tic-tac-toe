@@ -167,7 +167,6 @@ function playing(){
             check();
 
 
-            console.log(title.textContent.includes('Wins!') || title.textContent.includes('Draw!'));
             //Checking if the title includes 'Wins' or 'Draw' 
             if (title.textContent.includes('Wins!') || title.textContent.includes('Draw!')) {
                 removeEventListeners();
