@@ -167,6 +167,7 @@ function playing(){
             check();
 
 
+            console.log(title.textContent.includes('Wins!') || title.textContent.includes('Draw!'));
             //Checking if the title includes 'Wins' or 'Draw' 
             if (title.textContent.includes('Wins!') || title.textContent.includes('Draw!')) {
                 removeEventListeners();
@@ -207,31 +208,17 @@ function playing(){
 //This function checks if there is a winner
 function check(){
 
-    let numOfX = 0;
-    let numOfO = 0;
-
     let hasWinner = false;
 
     for(let i = 0; i < board.length;i++){
         for(let j = 0; j < board[i].length;j++){
             const firstElement = board[i][j];
-
-            let winner; //Initialize winner
-
-            //Check if the variable 'firstElement' is 'X' or 'O'
-            if(firstElement == 'X'){
-                winner = "Player X Wins!";
-                numOfX++; 
-            }else if(firstElement == 'O'){
-                winner = "Player O Wins!";
-                numOfO++; 
-            }
             
             //Check if all elements in a row are equal
             if(firstElement == board[i][0]&&firstElement == board[i][1] && firstElement == board[i][2]){
 
                 //Change the title based on the winner
-                document.querySelector('#click-me').textContent = winner;
+                document.querySelector('#click-me').textContent = `Player ${firstElement} Wins!`;
                 hasWinner = true; //Set to true to optimize program performance
                 break;
             }
@@ -239,27 +226,10 @@ function check(){
             else if(firstElement == board[0][j]&& firstElement == board[1][j] && firstElement == board[2][j]){
 
                 //Change the title based on the winner
-                document.querySelector('#click-me').textContent = winner;
+                document.querySelector('#click-me').textContent = `Player ${firstElement} Wins!`;
                 hasWinner = true; //Set to true to optimize program performance
                 break;
             }
-            //Check diagonal from bottom right to top left are equal
-            else if(firstElement == board[0][0] && firstElement == board[1][1] && firstElement == board[2][2]){
-
-                //Change the title based on the winner
-                document.querySelector('#click-me').textContent = winner;
-                hasWinner = true; //Set to true to optimize program performance
-                break;
-            }
-            //Check diagonal from top right to bottom left are equal
-            else if(firstElement == board[0][2] && firstElement == board[1][1] && firstElement == board[2][0]){
-
-                //Change the title based on the winner
-                document.querySelector('#click-me').textContent = winner;
-                hasWinner = true; //Set to true to optimize program performance
-                break;
-            }
-
             
         }
 
@@ -268,9 +238,26 @@ function check(){
         }
 
     }
+
+    //Check if all elements in the first, middle, and last positions are equal
+    if(board[0][0] === board[1][1] && board[0][0] === board[2][2] && !hasWinner){
+
+        //Change the title based on the winner
+        document.querySelector('#click-me').textContent = `Player ${board[0][0]} Wins!`;
+        hasWinner = true; //Set to true to optimize program performance
+        
+    }
+    //Check if all elements in the last, middle, and first positions are equal
+    if(board[0][2] === board[1][1] && board[0][2] === board[2][0] && !hasWinner){
+
+        //Change the title based on the winner
+        document.querySelector('#click-me').textContent = `Player ${board[0][2]} Wins!`;
+        hasWinner = true; //Set to true to optimize program performance
+        
+    }
     
-    //Checking if all boxes are full
-    if(numOfO == 4 && numOfX == 5 || numOfO == 5 && numOfX == 4){
+    //Checking if all boxes are full and 
+    if(board.every(element => typeof element === 'string' && element.trim() !== '') && !hasWinner){
         document.querySelector('#click-me').textContent = 'Draw!';
     }
 
