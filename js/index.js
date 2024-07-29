@@ -1,6 +1,6 @@
 //Initialize a random number between 1 and 2
 const random = parseInt(Math.random() * 2)+1;
-
+let audio;
 //Initialize an empty 2D array for storing element moves of players
 let board  = [
     [
@@ -92,7 +92,8 @@ function clickMeToStart(){
     document.querySelectorAll('.element').forEach(element =>{
         element.innerHTML = '';
     });
-    
+    audio = new Audio('./sounds/gameStart.mp3');
+    audio.play();
     document.removeEventListener('click',clickMeToStart);
     playing(); //Call the function 'playing'. This will run after clickMeToStart is triggered.
 }
@@ -118,7 +119,9 @@ function playing(){
             //This variable is for getting the element class based on the targeted box
             const element = box.querySelector('.element');
     
-            //Checking if the next move is X or O and setting the color and textContent of the element
+            //Checking if the next move is X or O and setting the color, textContent of the element and add click sound
+            audio = new Audio('./sounds/click.mp3');
+            audio.play();
             element.style.color = changePlayer % 2 == 0 ? 'green' : 'rgb(189, 189, 13)';
             element.textContent = changePlayer % 2 == 0 ? 'X' : 'O';
             title.textContent = changePlayer % 2 == 0 ? 'Player O' : 'Player X';
@@ -155,6 +158,7 @@ function playing(){
                 case 9:
                     board[2][2] = element.innerHTML;
                     break;
+                default:
             }
     
             
@@ -203,15 +207,24 @@ function playing(){
     
 }
 
-
 //This function checks if there is a winner
 function check(){
 
     let hasWinner = false;
+    let numOfX = 0;
+    let numOfO = 0;
 
     for(let i = 0; i < board.length;i++){
         for(let j = 0; j < board[i].length;j++){
             const firstElement = board[i][j];
+
+            if(firstElement === 'X'){
+                winner = "Player X Wins!";
+                numOfX++; 
+            }else if(firstElement === 'O'){
+                winner = "Player O Wins!";
+                numOfO++; 
+            }
             
             //Check if all elements in a row are equal
             if(firstElement == board[i][0]&&firstElement == board[i][1] && firstElement == board[i][2]){
@@ -233,6 +246,7 @@ function check(){
         }
 
         if(hasWinner){ // Exit the loop if there is a winner
+            audio = new Audio('./sounds/winner.mp3');
             break;
         }
 
@@ -242,6 +256,7 @@ function check(){
     if(board[0][0] === board[1][1] && board[0][0] === board[2][2] && !hasWinner){
 
         //Change the title based on the winner
+        audio = new Audio('./sounds/winner.mp3');
         document.querySelector('#click-me').textContent = `Player ${board[0][0]} Wins!`;
         hasWinner = true; //Set to true to optimize program performance
         
@@ -250,15 +265,18 @@ function check(){
     if(board[0][2] === board[1][1] && board[0][2] === board[2][0] && !hasWinner){
 
         //Change the title based on the winner
+        audio = new Audio('./sounds/winner.mp3');
         document.querySelector('#click-me').textContent = `Player ${board[0][2]} Wins!`;
         hasWinner = true; //Set to true to optimize program performance
         
     }
-    
-    //Checking if all boxes are full and 
-    if(board.every(element => typeof element === 'string' && element.trim() !== '') && !hasWinner){
+
+    // Checking if all boxes are full to announce a draw
+    if(numOfO == 4 && numOfX == 5 || numOfO == 5 && numOfX == 4 && !hasWinner){
         document.querySelector('#click-me').textContent = 'Draw!';
+        audio = new Audio('./sounds/draw.mp3');
     }
 
+    audio.play();
 }
 
