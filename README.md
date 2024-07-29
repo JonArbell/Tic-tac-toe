@@ -9,7 +9,7 @@
 * Simple and clean user interface
 
 ## Where to Play
-* Click here: [Tic-tac-toe] https://jonarbell.github.io/Tic-tac-toe/
+* Click here: [Tic-tac-toe] (https://jonarbell.github.io/Tic-tac-toe/)
 
 ## Project Structure
 * index.html: The main HTML file containing the game structure. 
