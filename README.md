@@ -8,8 +8,8 @@
 * Basic game logic for win and draw conditions 
 * Simple and clean user interface
 
-## How to Play
-* Click here: https://jonarbell.github.io/Tic-tac-toe/
+## Where to Play
+* Click here: [Tic-tac-toe] https://jonarbell.github.io/Tic-tac-toe/
 
 ## Project Structure
 * index.html: The main HTML file containing the game structure. 
